@@ -1,14 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import './App.css';
 
-// Importaciones para los íconos de Lucide
-// Nota: Necesitamos instalar lucide-react como dependencia
+
 interface LucideIconProps {
   className?: string;
   size?: number;
 }
 
-// Interfaces para nuestro estado
+
 interface DeviceConfig {
   maxMotorTemp: number;
   reactivationMotorTemp: number;
@@ -21,7 +20,7 @@ interface DeviceData {
   status: string;
 }
 
-// Componentes de iconos (placeholders hasta que instalemos lucide-react)
+
 const AlertCircle = ({ className, size = 24 }: LucideIconProps) => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
@@ -147,7 +146,7 @@ function App() {
     setError('');
     
     try {
-      // Crear string de datos exactamente como en el comando curl
+  
       const formData = `maxMotorTemp=${config.maxMotorTemp}&reactivationMotorTemp=${config.reactivationMotorTemp}`;
       
       console.log('Sending data:', formData);
@@ -168,10 +167,10 @@ function App() {
       
       console.log('Update successful');
       setError('');
-      // Mostrar confirmación al usuario
+      
       alert('Configuration updated successfully!');
       
-      // Opcional: volver a cargar la configuración actual
+      
       await fetchDeviceData();
     } catch (err) {
       console.error('Update error:', err);
@@ -181,7 +180,7 @@ function App() {
     }
   };
 
-  // Function to fetch real-time data
+  
   const fetchDeviceData = useCallback(async (): Promise<void> => {
     if (!isConnected) return;
     
@@ -196,20 +195,20 @@ function App() {
       setDeviceData(data);
     } catch (err) {
       console.error('Error fetching device data:', err);
-      // Don't set error state here to avoid interrupting the UI during polling
+     
     }
   }, [isConnected, ipAddress]);
 
-  // Set up polling for device data
+  
   useEffect(() => {
     if (!isConnected) return;
     
-    const interval = setInterval(fetchDeviceData, 500); // 0.5 seconds
+    const interval = setInterval(fetchDeviceData, 500); 
     
     return () => clearInterval(interval);
   }, [isConnected, fetchDeviceData]);
 
-  // Handle input changes for configuration
+  
   const handleConfigChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     setConfig(prev => ({
