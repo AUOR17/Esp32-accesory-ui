@@ -119,8 +119,13 @@ function App() {
     setError('');
     
     try {
-      // Make a request to the device's config endpoint
-      const response = await fetch(`http://${ipAddress}/config`);
+
+      const protocol = window.location.protocol === 'https:' ? 'http:' : window.location.protocol;
+      const url = `${protocol}//${ipAddress}/config`;
+
+      const response = await fetch(url, {
+        mode: 'cors'
+      });
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

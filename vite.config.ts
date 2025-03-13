@@ -3,9 +3,15 @@ import react from '@vitejs/plugin-react-swc'
 
 export default defineConfig({
   plugins: [react()],
-  base: './', // <- Rutas relativas para S3
+  base: './', 
   build: {
-    outDir: 'dist', // <- Carpeta de salida
-    assetsDir: '', // <- Evita que Vite cree una subcarpeta para archivos estáticos
+    outDir: 'dist',
+    assetsDir: '', 
+  },
+  server: {
+    host: true,
+    strictPort: true,
+    https: false, 
+    cors: true 
   }
 })
